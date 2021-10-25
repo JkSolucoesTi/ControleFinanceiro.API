@@ -30,8 +30,8 @@ namespace ControleFinanceiro.API.Validacao
                .MaximumLength(30).WithMessage("Use menos caracteres");
 
             RuleFor(r => r.Foto)
-               .NotNull().WithMessage("Escolha a foto")
-               .NotEmpty().WithMessage("Escolha a foto");
+           .NotNull().WithMessage("Escolha a foto")
+           .NotEmpty().WithMessage("Escolha a foto");
 
             RuleFor(r => r.Email)
                .NotNull().WithMessage("Preencha o email")
@@ -45,6 +45,7 @@ namespace ControleFinanceiro.API.Validacao
                .NotEmpty().WithMessage("Preencha a Senha")
                .MinimumLength(6).WithMessage("Use mais caracteres")
                .MaximumLength(50).WithMessage("Use menos caracteres");
+
 
 
         }

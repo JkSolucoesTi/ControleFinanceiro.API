@@ -57,8 +57,8 @@ namespace ControleFinanceiro.API.Controllers
             });
         }
 
-        [HttpPost("RegistrarUsuario")]
-        public async Task<ActionResult> InserirUsuario(RegistroViewModel model)
+        [HttpPost]
+        public async Task<ActionResult> RegistrarUsuario(RegistroViewModel model)
         {
             if (ModelState.IsValid)
             {
@@ -68,11 +68,11 @@ namespace ControleFinanceiro.API.Controllers
                 Usuario usuario = new Usuario
                 {
                     UserName = model.NomeUsuario,
-                    Email = model.Email,
+                 //   Email = model.Email,
                     PasswordHash = model.Senha,
                     CPF = model.CPF,
                     Profissao = model.Profissao,
-                    Foto = model.Foto
+                //    Foto = model.Foto
                 };
 
                 if(await _usuarioRepositorio.PegarQuantidadeUsuariosRegistrados() > 0)
