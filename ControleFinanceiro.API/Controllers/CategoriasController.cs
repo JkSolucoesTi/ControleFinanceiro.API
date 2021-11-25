@@ -1,6 +1,7 @@
 ﻿using ControleFinanceiro.BLL.Models;
 using ControleFinanceiro.DAL;
 using ControleFinanceiro.DAL.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -22,7 +23,8 @@ namespace ControleFinanceiro.API.Controllers
         {
             _categoriaRepositorio = categoriaRepositorio;
         }
-        // GET: api/<ValuesController>
+ 
+        [Authorize(Roles = "Administrador")]
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Categoria>>> GetCategorias()
         {
@@ -30,8 +32,7 @@ namespace ControleFinanceiro.API.Controllers
 
             return categorias;
         }
-
-        // GET api/<ValuesController>/5
+        [Authorize(Roles = "Administrador")]
         [HttpGet("{id}")]
         public async Task<ActionResult<Categoria>> GetCategoria(int id)
         {
@@ -44,8 +45,7 @@ namespace ControleFinanceiro.API.Controllers
 
             return categoria;
         }
-
-        // POST api/<ValuesController>
+        [Authorize(Roles = "Administrador")]
         [HttpPost]
         public async Task<ActionResult<Categoria>> PostCategoria(Categoria categoria)
         {
@@ -63,8 +63,7 @@ namespace ControleFinanceiro.API.Controllers
             }
 
         }
-
-        // PUT api/<ValuesController>/5
+        [Authorize(Roles = "Administrador")]
         [HttpPut("{id}")]
         public async Task<ActionResult<Categoria>> PutCategoria(int id, Categoria categoria)
         {
@@ -86,8 +85,7 @@ namespace ControleFinanceiro.API.Controllers
                 return BadRequest(ModelState);
             }
         }
-
-        // DELETE api/<ValuesController>/5
+        [Authorize(Roles = "Administrador")]
         [HttpDelete("{id}")]
         public async Task<ActionResult<Categoria>> DeleteCategoria(int id)
         {
@@ -105,7 +103,7 @@ namespace ControleFinanceiro.API.Controllers
                 mensagem = $"Categoria {categoria.Nome} excluída com sucesso"
             });
         }
-
+        [Authorize(Roles = "Administrador")]
         [HttpGet("FiltrarCategoria/{nomeCategoria}")]
 
         public async Task<ActionResult<IEnumerable<Categoria>>> FiltrarCategoria(string nomeCategoria)

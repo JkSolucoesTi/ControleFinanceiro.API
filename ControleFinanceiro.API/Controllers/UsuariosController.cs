@@ -1,4 +1,5 @@
-﻿using ControleFinanceiro.API.ViewModels;
+﻿using ControleFinanceiro.API.Services;
+using ControleFinanceiro.API.ViewModels;
 using ControleFinanceiro.BLL.Models;
 using ControleFinanceiro.DAL.Interfaces;
 using Microsoft.AspNetCore.Identity;
@@ -68,11 +69,11 @@ namespace ControleFinanceiro.API.Controllers
                 Usuario usuario = new Usuario
                 {
                     UserName = model.NomeUsuario,
-                 //   Email = model.Email,
+                    Email = model.Email,
                     PasswordHash = model.Senha,
                     CPF = model.CPF,
                     Profissao = model.Profissao,
-                //    Foto = model.Foto
+                    Foto = model.Foto
                 };
 
                 if(await _usuarioRepositorio.PegarQuantidadeUsuariosRegistrados() > 0)
@@ -89,12 +90,14 @@ namespace ControleFinanceiro.API.Controllers
                 if (usuarioCriado.Succeeded)
                 {
                     await _usuarioRepositorio.IncluirUsuarioEmFuncao(usuario, funcaoUsuario);
+                    var token = TokenService.GerarToken(usuario, funcaoUsuario);
                     await _usuarioRepositorio.LogarUsuario(usuario, false);
 
                     return Ok(new
                     {
                         emailUsuarioLogado = model.Email,
-                        usuarioId = usuario.Id
+                        usuarioId = usuario.Id,
+                        tokenUsuarioLogado = token
                     });
                 }
                 else
@@ -110,6 +113,35 @@ namespace ControleFinanceiro.API.Controllers
 
         }
 
-       
+        [HttpPost("LogarUsuario")]
+        public async Task<ActionResult> LogarUsuario(LoginViewModel model)
+        {
+            if(model == null)
+            {
+                return NotFound("Usuario ou Senha inválidos");
+            }
+
+            Usuario usuario = await _usuarioRepositorio.PegarPeloEmail(model.Email);
+
+            if(usuario != null)
+            {
+                PasswordHasher<Usuario> password = new PasswordHasher<Usuario>();
+                if(password.VerifyHashedPassword(usuario,usuario.PasswordHash,model.Senha) != PasswordVerificationResult.Failed)
+                {
+                    var funcaoUsuario = await _usuarioRepositorio.PegarFuncoesUsuario(usuario);
+                    var token = TokenService.GerarToken(usuario, funcaoUsuario.First());
+                    await _usuarioRepositorio.LogarUsuario(usuario, false);
+                    return Ok(new
+                    {
+                        emailUsuarioLogado = usuario.Email,
+                        usuarioId = usuario.Id,
+                        tokenUsuarioLogado = token
+                    });
+                }
+            }          
+            
+            return NotFound("Usuario e ou Senha inválidos");
+            
+        }       
     }
 }

@@ -1,6 +1,7 @@
 ﻿using ControleFinanceiro.API.ViewModels;
 using ControleFinanceiro.BLL.Models;
 using ControleFinanceiro.DAL.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -11,9 +12,10 @@ using System.Threading.Tasks;
 
 namespace ControleFinanceiro.API.Controllers
 {
-
+    [Authorize(Roles = "Administrador")]
     [Route("api/[controller]")]
     [ApiController]
+
     public class FuncoesController : ControllerBase
     {
         private readonly IFuncaoRepositorio _funcaoRepositorio;
@@ -23,7 +25,7 @@ namespace ControleFinanceiro.API.Controllers
         }
 
     [HttpGet]
-    public async Task<ActionResult<IEnumerable<Funcao>>>GetFunao()
+    public async Task<ActionResult<IEnumerable<Funcao>>>GetFuncao()
     {
         var funcao = await _funcaoRepositorio.PegarTodos().ToListAsync();
         return funcao;

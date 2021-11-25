@@ -16,5 +16,8 @@ namespace ControleFinanceiro.DAL.Interfaces
         Task IncluirUsuarioEmFuncao(Usuario usuario, string funcao);
 
         Task LogarUsuario(Usuario usuario, bool lembrar);
+
+        Task<Usuario> PegarPeloEmail(string email);
+        Task <IList<string>> PegarFuncoesUsuario(Usuario usuario);
     }
 }
