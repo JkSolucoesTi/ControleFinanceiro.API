@@ -43,19 +43,25 @@ namespace ControleFinanceiro.API
 
             services.AddIdentity<Usuario, Funcao>().AddEntityFrameworkStores<Contexto>();
             services.ConfigurarSenhaUsuario();
-        
+
+            services.AddScoped<ICartaoRepositorio, CartaoRepositorio>();
             services.AddScoped<ICategoriaRepositorio, CategoriaRepositorio>();
+            services.AddScoped<IDespesaRepositorio, DespesaRepositorio>();
+
             services.AddScoped<ITipoRepositorio, TipoRepositorio>();
             services.AddScoped<ICadastroRepositorio, CadastroRepositorio>();
             services.AddScoped<ISexoRepositorio, SexoRepositorio>();
             services.AddScoped<IFuncaoRepositorio, FuncaoRepositorio>();
             services.AddScoped<IUsuarioRepositorio, UsuarioRepositorio>();
+            services.AddScoped<IMesRepositorio, MesRepositorio>();
 
             services.AddTransient<IValidator<Categoria>, CategoriaValidator>();
             services.AddTransient<IValidator<FuncoesViewModel>, FuncoesViewModelValidator>();
             services.AddTransient<IValidator<RegistroViewModel>, RegistroViewModelValidator>();
             services.AddTransient<IValidator<LoginViewModel>, LoginViewModelValidator>();
-
+            services.AddTransient<IValidator<Cartao>, CartaoValidator>();
+            services.AddTransient<IValidator<Despesa>, DespesaValidator>();
+            
 
             services.AddCors();
 

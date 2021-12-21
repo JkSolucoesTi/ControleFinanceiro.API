@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ControleFinanceiro.DAL.Migrations
 {
     [DbContext(typeof(Contexto))]
-    [Migration("20211007004024_datanascimento")]
-    partial class datanascimento
+    [Migration("20211221173238_database inicial")]
+    partial class databaseinicial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -216,16 +216,16 @@ namespace ControleFinanceiro.DAL.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "69e810c5-02c1-4618-8072-aa9b1ccdc83f",
-                            ConcurrencyStamp = "2e164ab2-80b3-4f65-88e0-3da292314e08",
+                            Id = "d2ab30e7-51c3-45f1-994d-80422fceacf0",
+                            ConcurrencyStamp = "88f7f290-9101-4266-8c90-7fd5550ec065",
                             Descricao = "Administrador do sistema",
                             Name = "Administrador",
                             NormalizedName = "ADMINISTRADOR"
                         },
                         new
                         {
-                            Id = "77587423-7d1b-4ac4-91be-6ccb35a7bd6f",
-                            ConcurrencyStamp = "c2c8c388-0ef4-4800-9ae1-4df6260d1e0f",
+                            Id = "8580e538-a9d8-4591-952d-8d0828cbe137",
+                            ConcurrencyStamp = "8fe1c096-aa07-4767-9223-1b64f8ab7b54",
                             Descricao = "Usuário do sistema",
                             Name = "Usuario",
                             NormalizedName = "USUARIO"
@@ -421,13 +421,14 @@ namespace ControleFinanceiro.DAL.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Email")
-                        .HasColumnType("nvarchar(256)")
-                        .HasMaxLength(256);
+                        .HasColumnType("nvarchar(50)")
+                        .HasMaxLength(50);
 
                     b.Property<bool>("EmailConfirmed")
                         .HasColumnType("bit");
 
                     b.Property<byte[]>("Foto")
+                        .IsRequired()
                         .HasColumnType("varbinary(max)");
 
                     b.Property<bool>("LockoutEnabled")

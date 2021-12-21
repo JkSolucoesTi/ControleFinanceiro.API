@@ -14,5 +14,7 @@ namespace ControleFinanceiro.DAL.Interfaces
         new Task<Categoria> PegarPeloId(int id);
 
         IQueryable<Categoria> FiltrarCategoria(string nomeCategoria);
+
+        IQueryable<Categoria> PegarCategoriaPeloTipo(string tipo);
     }
 }

@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace ControleFinanceiro.DAL.Migrations
 {
-    public partial class bancodedados : Migration
+    public partial class databaseinicial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -68,7 +68,7 @@ namespace ControleFinanceiro.DAL.Migrations
                     Id = table.Column<string>(nullable: false),
                     UserName = table.Column<string>(maxLength: 256, nullable: true),
                     NormalizedUserName = table.Column<string>(maxLength: 256, nullable: true),
-                    Email = table.Column<string>(maxLength: 256, nullable: true),
+                    Email = table.Column<string>(maxLength: 50, nullable: true),
                     NormalizedEmail = table.Column<string>(maxLength: 256, nullable: true),
                     EmailConfirmed = table.Column<bool>(nullable: false),
                     PasswordHash = table.Column<string>(nullable: true),
@@ -82,7 +82,7 @@ namespace ControleFinanceiro.DAL.Migrations
                     AccessFailedCount = table.Column<int>(nullable: false),
                     CPF = table.Column<string>(maxLength: 20, nullable: false),
                     Profissao = table.Column<string>(maxLength: 30, nullable: false),
-                    Foto = table.Column<byte[]>(nullable: true)
+                    Foto = table.Column<byte[]>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -121,7 +121,8 @@ namespace ControleFinanceiro.DAL.Migrations
                     Numero = table.Column<string>(maxLength: 20, nullable: false),
                     CEP = table.Column<string>(maxLength: 10, nullable: false),
                     Bairro = table.Column<string>(nullable: true),
-                    SexoId = table.Column<int>(nullable: false)
+                    SexoId = table.Column<int>(nullable: false),
+                    DataNascimento = table.Column<string>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -346,8 +347,8 @@ namespace ControleFinanceiro.DAL.Migrations
                 columns: new[] { "Id", "ConcurrencyStamp", "Descricao", "Name", "NormalizedName" },
                 values: new object[,]
                 {
-                    { "c231a077-0584-46c8-8b99-6627576c3a09", "73e55c3b-6dee-4e8b-b648-daec7bb489b2", "Administrador do sistema", "Administrador", "ADMINISTRADOR" },
-                    { "048b4dab-49f8-4bc0-987b-69a1ee47b8bb", "0b3e5ea2-6d3f-401f-849d-a364b32f5bb1", "Usuário do sistema", "Usuario", "USUARIO" }
+                    { "d2ab30e7-51c3-45f1-994d-80422fceacf0", "88f7f290-9101-4266-8c90-7fd5550ec065", "Administrador do sistema", "Administrador", "ADMINISTRADOR" },
+                    { "8580e538-a9d8-4591-952d-8d0828cbe137", "8fe1c096-aa07-4767-9223-1b64f8ab7b54", "Usuário do sistema", "Usuario", "USUARIO" }
                 });
 
             migrationBuilder.InsertData(
