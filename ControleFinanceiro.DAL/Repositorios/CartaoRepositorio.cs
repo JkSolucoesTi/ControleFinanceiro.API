@@ -1,9 +1,11 @@
 ﻿using ControleFinanceiro.BLL.Models;
 using ControleFinanceiro.DAL.Interfaces;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace ControleFinanceiro.DAL.Repositorios
 {
@@ -37,6 +39,18 @@ namespace ControleFinanceiro.DAL.Repositorios
             catch (Exception ex)
             {
 
+                throw ex;
+            }
+        }
+
+        public async Task<int> PegarQuantidadeCartoesPeloUsuarioId(string usuarioId)
+        {
+            try
+            {
+                return await _context.Cartoes.CountAsync(c => c.UsuarioId == usuarioId);
+            }
+            catch (Exception ex)
+            {
                 throw ex;
             }
         }

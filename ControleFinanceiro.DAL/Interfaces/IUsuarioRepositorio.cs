@@ -19,5 +19,7 @@ namespace ControleFinanceiro.DAL.Interfaces
 
         Task<Usuario> PegarPeloEmail(string email);
         Task <IList<string>> PegarFuncoesUsuario(Usuario usuario);
+
+        Task AtualizarUsuario(Usuario usuario);
     }
 }

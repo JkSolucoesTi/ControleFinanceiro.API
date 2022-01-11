@@ -27,7 +27,15 @@ namespace ControleFinanceiro.API.Controllers
         {
             return await _despesaRepositorio.PegarDespesaPeloUsuarioId(usuarioId).ToListAsync();
         }
-        
+
+
+        [HttpGet("PegarDespesasPeloId/{usuarioId}")]
+        public async Task<ActionResult<Despesa>> PegarDespesasPeloId(int usuarioId)
+        {
+            return await _despesaRepositorio.PegarDespesaPeloId(usuarioId).FirstOrDefaultAsync();
+        }
+
+
         // GET api/<DespesasController>/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Despesa>>  GetDespesa(int id)
@@ -99,5 +107,12 @@ namespace ControleFinanceiro.API.Controllers
                 mensagem = $"Despesa {despesa.Valor} excluida com sucesso"
             });
         }
+
+        [HttpGet("FiltrarDespesas/{nomeCategoria}")]
+        public async Task<ActionResult<IEnumerable<Despesa>>> FiltrarDepesas(string nomeCategoria)
+        {
+            return await _despesaRepositorio.FiltrarDespesa(nomeCategoria).ToListAsync();
+        }
+
     }
 }

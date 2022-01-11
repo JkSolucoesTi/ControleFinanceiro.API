@@ -25,7 +25,7 @@ namespace ControleFinanceiro.API.Controllers
         }
         // GET: api/<UsuariosController>
         [HttpGet("{id}")]
-        public async Task<ActionResult<Usuario>> PegarPeloId(string id)
+        public async Task<ActionResult<AtualizarUsuarioViewModel>> PegarPeloId(string id)
         {
             var usuario = await _usuarioRepositorio.PegarPeloId(id);
 
@@ -34,7 +34,18 @@ namespace ControleFinanceiro.API.Controllers
                 return NotFound();
             }
 
-            return usuario;
+            AtualizarUsuarioViewModel model = new AtualizarUsuarioViewModel
+            {
+                Id = usuario.Id,
+                UserName = usuario.UserName,
+                Email = usuario.Email,
+                CPF = usuario.CPF,
+                Profissao = usuario.Profissao,
+                Foto = usuario.Foto
+
+            };
+
+            return model;
         }
 
         [HttpPost("SalvarFoto")]
@@ -142,6 +153,42 @@ namespace ControleFinanceiro.API.Controllers
             
             return NotFound("Usuario e ou Senha inválidos");
             
-        }       
+        }   
+        
+
+        [HttpGet("RetornarFotoUsuario/{usuarioId}")]
+        public async Task<dynamic> RetornarFotoUsuario(string usuarioId)
+        {
+            Usuario usuario = await _usuarioRepositorio.PegarPeloId(usuarioId);
+
+            return new { imagem = usuario.Foto };
+        }
+
+        [HttpPut("AtualizarUsuario")]
+        public async Task<ActionResult> AtualizarUsuario(AtualizarUsuarioViewModel atualizarUsuario)
+        {
+            if (ModelState.IsValid)
+            {
+                Usuario usuario = await _usuarioRepositorio.PegarPeloId(atualizarUsuario.Id);
+                usuario.UserName = atualizarUsuario.UserName;
+                usuario.Email = atualizarUsuario.Email;
+                usuario.CPF = atualizarUsuario.CPF;
+                usuario.Profissao = atualizarUsuario.Profissao;
+                usuario.Foto = atualizarUsuario.Foto;
+
+                await _usuarioRepositorio.AtualizarUsuario(usuario);
+
+                return Ok(new
+                {
+                    mensagem = $"Usuario {usuario.Email} atualizado com sucesso"
+                });
+
+
+            }
+
+            return BadRequest(atualizarUsuario);
+        }
+
+
     }
 }

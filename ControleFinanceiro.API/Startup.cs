@@ -54,14 +54,17 @@ namespace ControleFinanceiro.API
             services.AddScoped<IFuncaoRepositorio, FuncaoRepositorio>();
             services.AddScoped<IUsuarioRepositorio, UsuarioRepositorio>();
             services.AddScoped<IMesRepositorio, MesRepositorio>();
+            services.AddScoped<IGanhosRepositorio, GanhoRepositorio>();
+            services.AddScoped<IGraficoRepositorio, GraficoRepositorio>();
 
             services.AddTransient<IValidator<Categoria>, CategoriaValidator>();
             services.AddTransient<IValidator<FuncoesViewModel>, FuncoesViewModelValidator>();
             services.AddTransient<IValidator<RegistroViewModel>, RegistroViewModelValidator>();
             services.AddTransient<IValidator<LoginViewModel>, LoginViewModelValidator>();
+            services.AddTransient<IValidator<AtualizarUsuarioViewModel>, AtualizarUsuarioViewModelValidator>();
             services.AddTransient<IValidator<Cartao>, CartaoValidator>();
             services.AddTransient<IValidator<Despesa>, DespesaValidator>();
-            
+            services.AddTransient<IValidator<Ganho>,GanhoValidator>();
 
             services.AddCors();
 
