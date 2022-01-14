@@ -18,6 +18,7 @@ namespace ControleFinanceiro.DAL.Repositorios
             try
             {
                 return _contexto.Despesas.Where(d => d.UsuarioId == usuarioId && d.Ano == ano)
+                    .OrderBy(a => a.Mes.MesId)
                     .GroupBy(d => d.Mes.MesId)
                     .Select(d => new
                     {
@@ -37,6 +38,7 @@ namespace ControleFinanceiro.DAL.Repositorios
             try
             {
                 return _contexto.Ganhos.Where(d => d.UsuarioId == usuarioId && d.Ano == ano)
+                    .OrderBy(a => a.Mes.MesId)
                   .GroupBy(d => d.Mes.MesId)
                   .Select(d => new
                   {
